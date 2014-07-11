@@ -1,0 +1,12 @@
+.classpath
+.project
+.DS_Store
+.idea
+.tm_properties
+.tmproj
+.settings/
+target/
+*.tmp
+*.swp
+*.iml
+out/
