@@ -33,9 +33,10 @@ Fuction Call           | add(a, 4)
 Conditional            | if (a > 10) {a + 3} else {a - 3}
 
 ###3. Bytecode Interpreter
-
-
 Only PUSH, ADD, SUB, MUL, DIV are supported for now.
+
+###4. State recording & query
+The interpreter(Scala verison) can record the VM's execution state and query the recorded states.
 
 
 ## Future Plans
