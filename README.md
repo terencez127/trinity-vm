@@ -1,18 +1,42 @@
-# SVM (Scala Virtual Machine)
+# Trinity VM
 
 
 ## Introduction
 ![Overview] (./overview.jpg)
-The project is to implement a virtual machine which runs bytecode instructions, and an interperter that accepts code in functional & imperative languages & bytecode as well based on the virtual machine. That means, all the code in functional or imperative languages are first compiled to bytecode and then executed.
+The project implements a virtual machine which executs bytecode instructions, and an interperter that accepts code in functional & imperative languages & bytecode as well. All the functional & imperative code are first compiled to bytecode before being executed.
 
+
+There are both Java and Scala implementations, note that the Java version's interpretor only supports scheme code.
 
 ## Current Progress
-1. Functional Language:
-    * 
-2. Impretaive Language:
-    * 
-3. Bytecode:
-    * 
+###1. Functional Language
+* Arthmetic:   (+ 1 2)
+* Boolean:     (< x 10)
+* Definition:  (define var exp)
+* Conditional: (if test conseq alt) 
+* Procedure:   (lambda (var...) exp) 
+* Sequencing:  (begin exp...)
+* List
+* car, cdr
+* Closure
+* continuation(call/cc)
+
+###2. Impretaive Language
+
+Statement Type              | Example
+---------------------- | --------------------------------
+Boolean                | 1 < 2
+Arthmetic              | 1 + 2, a * b
+Assignment             | int a = 3
+Function Declaration   | def add(x, y) {x + y}
+Fuction Call           | add(a, 4)
+Conditional            | if (a > 10) {a + 3} else {a - 3}
+
+###3. Bytecode
+
+
+Interpreter only supports PUSH, ADD, SUB, MUL, DIV for now.
+
 
 ## Future Plans
 TBD...
