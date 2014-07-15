@@ -1,4 +1,4 @@
-grammar Lispy;
+grammar Scheme;
 prog:   (sexpr)* ;
 sexprlist:  LPAREN sexpr+ RPAREN ;
 sexpr:  sexprBoolean | sexprIdent | sexprNumber | sexprlist;

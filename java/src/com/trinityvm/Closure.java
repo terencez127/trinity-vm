@@ -1,4 +1,4 @@
-package com.cs652;
+package com.trinityvm;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -15,8 +15,8 @@ public abstract class Closure {
     // body of the closure
     public ParseTree body = null;
 
-    public abstract ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-            final LispyParser.SexprlistContext paramList) throws EvalError;
+    public abstract ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+            final SchemeParser.SexprlistContext paramList) throws EvalError;
 
     public Closure(Environment environment) {
         paramEnv = new Environment();

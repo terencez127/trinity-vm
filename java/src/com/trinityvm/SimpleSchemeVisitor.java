@@ -1,4 +1,4 @@
-package com.cs652;
+package com.trinityvm;
 
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -8,11 +8,11 @@ import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 
 import java.util.List;
 
-public class SimpleLispyVisitor extends LispyBaseVisitor<ParseTree> {
+public class SimpleSchemeVisitor extends com.trinityvm.SchemeBaseVisitor<ParseTree> {
     private Environment global;
     private Environment curEnv;
 
-    public SimpleLispyVisitor(Environment environment) {
+    public SimpleSchemeVisitor(Environment environment) {
         global = environment;
         curEnv = global;
     }
@@ -24,47 +24,47 @@ public class SimpleLispyVisitor extends LispyBaseVisitor<ParseTree> {
     }
 
     @Override
-    public ParseTree visitSexprBoolean(@NotNull final LispyParser.SexprBooleanContext ctx) {
+    public ParseTree visitSexprBoolean(@NotNull final SchemeParser.SexprBooleanContext ctx) {
         return ctx.BOOLEAN();
     }
 
     @Override
-    public ParseTree visitProg(@NotNull final LispyParser.ProgContext ctx) {
+    public ParseTree visitProg(@NotNull final SchemeParser.ProgContext ctx) {
 //        List<ParseTree> ret = new ArrayList<>();
         StringBuilder ret = new StringBuilder();
-        List<LispyParser.SexprContext> sexprs = ctx.sexpr();
+        List<SchemeParser.SexprContext> sexprs = ctx.sexpr();
         ParseTree n;
 
-        for (LispyParser.SexprContext sexpr : sexprs) {
+        for (SchemeParser.SexprContext sexpr : sexprs) {
             n = visit(sexpr);
             if (n != null) {
                 ret.append(n.getText());
             }
         }
 
-        return new TerminalNodeImpl(new CommonToken(LispyLexer.IDENT, ret.toString()));
+        return new TerminalNodeImpl(new CommonToken(SchemeLexer.IDENT, ret.toString()));
     }
 
     @Override
-    public ParseTree visitSexprlist(@NotNull final LispyParser.SexprlistContext ctx) {
+    public ParseTree visitSexprlist(@NotNull final SchemeParser.SexprlistContext ctx) {
         try {
             Environment env = curEnv;
-            List<LispyParser.SexprContext> list = ctx.sexpr();
+            List<SchemeParser.SexprContext> list = ctx.sexpr();
             if (list.size() > 0) {
-                LispyParser.SexprContext firstSexpr = list.get(0);
+                SchemeParser.SexprContext firstSexpr = list.get(0);
                 if (firstSexpr.sexprIdent() != null) {
                     ParseTree first = visitSexprIdent(firstSexpr.sexprIdent());
                     int type = ((TerminalNode)first).getSymbol().getType();
 
-                    if (type == LispyLexer.BOOLEAN || type == LispyLexer.NUMBER) {
+                    if (type == SchemeLexer.BOOLEAN || type == SchemeLexer.NUMBER) {
                         return first;
                     } else {
                         first = revokeIdent((TerminalNode)first);
                         if (first instanceof TerminalNode) {
                             type = ((TerminalNode)first).getSymbol().getType();
                             switch (type) {
-                                case LispyLexer.BOOLEAN:
-                                case LispyLexer.NUMBER:
+                                case SchemeLexer.BOOLEAN:
+                                case SchemeLexer.NUMBER:
                                     return first;
                             }
                         }
@@ -114,7 +114,7 @@ public class SimpleLispyVisitor extends LispyBaseVisitor<ParseTree> {
     }
 
     @Override
-    public ParseTree visitSexpr(@NotNull final LispyParser.SexprContext ctx)  {
+    public ParseTree visitSexpr(@NotNull final SchemeParser.SexprContext ctx)  {
         Environment env = curEnv;
         if (ctx.sexprBoolean() != null) {
             return visitSexprBoolean(ctx.sexprBoolean());
@@ -129,13 +129,13 @@ public class SimpleLispyVisitor extends LispyBaseVisitor<ParseTree> {
                 if (env.getClosure(name) != null) {
                     return ctx.sexprIdent().IDENT();
                 } else {
-                    if (valueNode instanceof LispyParser.SexprNumberContext) {
-                        return ((LispyParser.SexprNumberContext) valueNode).NUMBER();
-                    } else if (valueNode instanceof LispyParser.SexprBooleanContext) {
-                        return ((LispyParser.SexprBooleanContext) valueNode).BOOLEAN();
+                    if (valueNode instanceof SchemeParser.SexprNumberContext) {
+                        return ((SchemeParser.SexprNumberContext) valueNode).NUMBER();
+                    } else if (valueNode instanceof SchemeParser.SexprBooleanContext) {
+                        return ((SchemeParser.SexprBooleanContext) valueNode).BOOLEAN();
                     } else if (valueNode instanceof TerminalNode) {
                         return valueNode;
-                    } else if (valueNode instanceof LispyParser.SexprlistContext) {
+                    } else if (valueNode instanceof SchemeParser.SexprlistContext) {
                         return valueNode;
                     } else {
                         new EvalError(ctx.sexprIdent());
@@ -154,12 +154,12 @@ public class SimpleLispyVisitor extends LispyBaseVisitor<ParseTree> {
     }
 
     @Override
-    public ParseTree visitSexprNumber(@NotNull final LispyParser.SexprNumberContext ctx) {
+    public ParseTree visitSexprNumber(@NotNull final SchemeParser.SexprNumberContext ctx) {
         return ctx.NUMBER();
     }
 
     @Override
-    public ParseTree visitSexprIdent(@NotNull final LispyParser.SexprIdentContext ctx) {
+    public ParseTree visitSexprIdent(@NotNull final SchemeParser.SexprIdentContext ctx) {
         return ctx.IDENT();
     }
 
@@ -183,10 +183,10 @@ public class SimpleLispyVisitor extends LispyBaseVisitor<ParseTree> {
 
     public ParseTree revokeIdent(TerminalNode node) {
         int type = node.getSymbol().getType();
-        if (type == LispyLexer.IDENT) {
+        if (type == SchemeLexer.IDENT) {
             ParseTree ret = curEnv.lookup(node.getText());
             if (ret instanceof TerminalNode) {
-                if (((TerminalNode) ret).getSymbol().getType() == LispyLexer.IDENT) {
+                if (((TerminalNode) ret).getSymbol().getType() == SchemeLexer.IDENT) {
                     return revokeIdent((TerminalNode) ret);
                 } else {
                     return ret;

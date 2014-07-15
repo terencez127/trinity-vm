@@ -1,4 +1,4 @@
-package com.cs652;
+package com.trinityvm;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -41,17 +41,17 @@ public class Main {
         ANTLRInputStream input = new ANTLRInputStream(content);
 
         // create a lexer that feeds off of input CharStream
-        LispyLexer lexer = new LispyLexer(input);
+        SchemeLexer lexer = new SchemeLexer(input);
 
         // create a buffer of tokens pulled from the lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer);
 
         // create a parser that feeds off the tokens buffer
-        LispyParser parser = new LispyParser(tokens);
+        SchemeParser parser = new SchemeParser(tokens);
         parser.setBuildParseTree(true);
 
         ParseTree tree = parser.prog();
-        SimpleLispyVisitor visitor = new SimpleLispyVisitor(globalEnv);
+        SimpleSchemeVisitor visitor = new SimpleSchemeVisitor(globalEnv);
         ParseTree ret = visitor.visit(tree);
         if (ret != null) {
             System.out.println(ret.getText());
@@ -62,11 +62,11 @@ public class Main {
     private static void addClosure(Environment environment, String name, Closure closure,
             int paramCount) {
         String closureHash = String.valueOf(closure.hashCode());
-        LispyParser.SexprlistContext list = new LispyParser.SexprlistContext(null, 0);
+        SchemeParser.SexprlistContext list = new SchemeParser.SexprlistContext(null, 0);
         for (int i = 0; i < paramCount; i++) {
             String pName = closureHash + String.valueOf(i);
             closure.addParam(pName);
-            list.addChild(new CommonToken(LispyLexer.IDENT, pName));
+            list.addChild(new CommonToken(SchemeLexer.IDENT, pName));
         }
         environment.addClosure(name, closure);
 

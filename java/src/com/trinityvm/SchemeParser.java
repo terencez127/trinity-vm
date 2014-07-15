@@ -1,15 +1,12 @@
-package com.cs652;// Generated from /Users/terence/Dropbox/temp/mm/antlr/Lispy.g4 by ANTLR 4.x
+package com.trinityvm;// Generated from /Users/terence/Dropbox/temp/mm/antlr/Scheme.g4 by ANTLR 4.x
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class LispyParser extends Parser {
+public class SchemeParser extends Parser {
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -27,7 +24,7 @@ public class LispyParser extends Parser {
 	};
 
 	@Override
-	public String getGrammarFileName() { return "Lispy.g4"; }
+	public String getGrammarFileName() { return "Scheme.g4"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }
@@ -41,7 +38,7 @@ public class LispyParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public LispyParser(TokenStream input) {
+	public SchemeParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -58,15 +55,15 @@ public class LispyParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_prog; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).enterProg(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).enterProg(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).exitProg(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).exitProg(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LispyVisitor ) return ((LispyVisitor<? extends T>)visitor).visitProg(this);
+			if ( visitor instanceof SchemeVisitor ) return ((SchemeVisitor<? extends T>)visitor).visitProg(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -108,26 +105,26 @@ public class LispyParser extends Parser {
 		public List<SexprContext> sexpr() {
 			return getRuleContexts(SexprContext.class);
 		}
-		public TerminalNode RPAREN() { return getToken(LispyParser.RPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(com.trinityvm.SchemeParser.RPAREN, 0); }
 		public SexprContext sexpr(int i) {
 			return getRuleContext(SexprContext.class,i);
 		}
-		public TerminalNode LPAREN() { return getToken(LispyParser.LPAREN, 0); }
+		public TerminalNode LPAREN() { return getToken(com.trinityvm.SchemeParser.LPAREN, 0); }
 		public SexprlistContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sexprlist; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).enterSexprlist(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).enterSexprlist(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).exitSexprlist(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).exitSexprlist(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LispyVisitor ) return ((LispyVisitor<? extends T>)visitor).visitSexprlist(this);
+			if ( visitor instanceof SchemeVisitor ) return ((SchemeVisitor<? extends T>)visitor).visitSexprlist(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -186,15 +183,15 @@ public class LispyParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_sexpr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).enterSexpr(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).enterSexpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).exitSexpr(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).exitSexpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LispyVisitor ) return ((LispyVisitor<? extends T>)visitor).visitSexpr(this);
+			if ( visitor instanceof SchemeVisitor ) return ((SchemeVisitor<? extends T>)visitor).visitSexpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -245,22 +242,22 @@ public class LispyParser extends Parser {
 	}
 
 	public static class SexprIdentContext extends ParserRuleContext {
-		public TerminalNode IDENT() { return getToken(LispyParser.IDENT, 0); }
+		public TerminalNode IDENT() { return getToken(com.trinityvm.SchemeParser.IDENT, 0); }
 		public SexprIdentContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sexprIdent; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).enterSexprIdent(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).enterSexprIdent(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).exitSexprIdent(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).exitSexprIdent(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LispyVisitor ) return ((LispyVisitor<? extends T>)visitor).visitSexprIdent(this);
+			if ( visitor instanceof SchemeVisitor ) return ((SchemeVisitor<? extends T>)visitor).visitSexprIdent(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -286,22 +283,22 @@ public class LispyParser extends Parser {
 	}
 
 	public static class SexprNumberContext extends ParserRuleContext {
-		public TerminalNode NUMBER() { return getToken(LispyParser.NUMBER, 0); }
+		public TerminalNode NUMBER() { return getToken(com.trinityvm.SchemeParser.NUMBER, 0); }
 		public SexprNumberContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sexprNumber; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).enterSexprNumber(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).enterSexprNumber(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).exitSexprNumber(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).exitSexprNumber(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LispyVisitor ) return ((LispyVisitor<? extends T>)visitor).visitSexprNumber(this);
+			if ( visitor instanceof SchemeVisitor ) return ((SchemeVisitor<? extends T>)visitor).visitSexprNumber(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -327,22 +324,22 @@ public class LispyParser extends Parser {
 	}
 
 	public static class SexprBooleanContext extends ParserRuleContext {
-		public TerminalNode BOOLEAN() { return getToken(LispyParser.BOOLEAN, 0); }
+		public TerminalNode BOOLEAN() { return getToken(com.trinityvm.SchemeParser.BOOLEAN, 0); }
 		public SexprBooleanContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_sexprBoolean; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).enterSexprBoolean(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).enterSexprBoolean(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LispyListener ) ((LispyListener)listener).exitSexprBoolean(this);
+			if ( listener instanceof SchemeListener ) ((SchemeListener)listener).exitSexprBoolean(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LispyVisitor ) return ((LispyVisitor<? extends T>)visitor).visitSexprBoolean(this);
+			if ( visitor instanceof SchemeVisitor ) return ((SchemeVisitor<? extends T>)visitor).visitSexprBoolean(this);
 			else return visitor.visitChildren(this);
 		}
 	}

@@ -1,4 +1,4 @@
-package com.cs652;// Generated from /Users/terence/Dropbox/temp/mm/antlr/Lispy.g4 by ANTLR 4.x
+package com.trinityvm;// Generated from /Users/terence/Dropbox/temp/mm/antlr/Scheme.g4 by ANTLR 4.x
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -9,7 +9,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class LispyLexer extends Lexer {
+public class SchemeLexer extends Lexer {
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
@@ -29,13 +29,13 @@ public class LispyLexer extends Lexer {
 	};
 
 
-	public LispyLexer(CharStream input) {
+	public SchemeLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Lispy.g4"; }
+	public String getGrammarFileName() { return "Scheme.g4"; }
 
 	@Override
 	public String[] getTokenNames() { return tokenNames; }

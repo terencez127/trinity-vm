@@ -1,4 +1,4 @@
-package com.cs652;
+package com.trinityvm;
 
 import org.antlr.v4.runtime.RuleContext;
 

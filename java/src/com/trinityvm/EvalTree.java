@@ -1,4 +1,4 @@
-package com.cs652;
+package com.trinityvm;
 
 
 import org.antlr.v4.runtime.CommonToken;
@@ -23,8 +23,8 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             ParseTree n1 = paramList.sexpr().get(1);
             ParseTree n2 = paramList.sexpr().get(2);
             if (n1 != null && n2 != null) {
@@ -35,25 +35,25 @@ public class EvalTree {
                 visitor.swapCurEnv(preEnv);
                 int type1 = ((TerminalNode)n1).getSymbol().getType();
                 int type2 = ((TerminalNode)n2).getSymbol().getType();
-                if (type1 == LispyLexer.NUMBER && type2 == LispyLexer.NUMBER) {
+                if (type1 == SchemeLexer.NUMBER && type2 == SchemeLexer.NUMBER) {
                     TerminalNode ret;
                     Integer val = 0;
                     switch (type) {
                         case PLUS:
                             val = Integer.parseInt(n1.getText()) + Integer.parseInt(n2.getText());
-                            ret = new TerminalNodeImpl(new CommonToken(LispyLexer.NUMBER, val.toString()));
+                            ret = new TerminalNodeImpl(new CommonToken(SchemeLexer.NUMBER, val.toString()));
                             break;
                         case MINUS:
                             val = Integer.parseInt(n1.getText()) - Integer.parseInt(n2.getText());
-                            ret = new TerminalNodeImpl(new CommonToken(LispyLexer.NUMBER, val.toString()));
+                            ret = new TerminalNodeImpl(new CommonToken(SchemeLexer.NUMBER, val.toString()));
                             break;
                         case MULTIPLY:
                             val = Integer.parseInt(n1.getText()) * Integer.parseInt(n2.getText());
-                            ret = new TerminalNodeImpl(new CommonToken(LispyLexer.NUMBER, val.toString()));
+                            ret = new TerminalNodeImpl(new CommonToken(SchemeLexer.NUMBER, val.toString()));
                             break;
                         case DIVIDE:
                             val = Integer.parseInt(n1.getText()) / Integer.parseInt(n2.getText());
-                            ret = new TerminalNodeImpl(new CommonToken(LispyLexer.NUMBER, val.toString()));
+                            ret = new TerminalNodeImpl(new CommonToken(SchemeLexer.NUMBER, val.toString()));
                             break;
                         default:
                             throw new EvalError(paramList);
@@ -110,8 +110,8 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             Environment tmpEnv = new Environment();
             tmpEnv.setParent(paramEnv.getParent());
             ParseTree n1 = paramList.sexpr().get(1);
@@ -128,7 +128,7 @@ public class EvalTree {
 
                 int type1 = ((TerminalNode)n1).getSymbol().getType();
                 int type2 = ((TerminalNode)n2).getSymbol().getType();
-                if (type1 == LispyLexer.NUMBER && type2 == LispyLexer.NUMBER) {
+                if (type1 == SchemeLexer.NUMBER && type2 == SchemeLexer.NUMBER) {
                         TerminalNode ret;
                         Boolean tmp;
                         switch (type) {
@@ -165,12 +165,12 @@ public class EvalTree {
         private TerminalNode getBooleanNode(boolean bValue) {
             String node;
             if (bValue) {
-                node = LispyLexer.tokenNames[LispyLexer.TRUE];
+                node = SchemeLexer.tokenNames[SchemeLexer.TRUE];
             } else {
-                node = LispyLexer.tokenNames[LispyLexer.FALSE];
+                node = SchemeLexer.tokenNames[SchemeLexer.FALSE];
             }
 
-            return new TerminalNodeImpl(new CommonToken(LispyLexer.BOOLEAN, node));
+            return new TerminalNodeImpl(new CommonToken(SchemeLexer.BOOLEAN, node));
         }
     }
 
@@ -215,8 +215,8 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             return paramList.sexpr().get(1);
         }
     }
@@ -227,10 +227,10 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
-            LispyParser.SexprContext n1 = paramList.sexpr().get(1);
-            LispyParser.SexprContext n2 = paramList.sexpr().get(2);
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
+            SchemeParser.SexprContext n1 = paramList.sexpr().get(1);
+            SchemeParser.SexprContext n2 = paramList.sexpr().get(2);
 
 
             if (n1.sexprIdent() != null) {
@@ -255,8 +255,8 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             ParseTree test = paramList.sexpr().get(1);
             ParseTree conseq = paramList.sexpr().get(2);
 
@@ -269,9 +269,9 @@ public class EvalTree {
                 Environment preEnv = visitor.swapCurEnv(outEnv);
                 test = visitor.visit(test);
                 int typeTest = ((TerminalNode)test).getSymbol().getType();
-                if (typeTest == LispyLexer.BOOLEAN) {
+                if (typeTest == SchemeLexer.BOOLEAN) {
                     ParseTree ret = null;
-                    if (((TerminalNode) test).getSymbol().getType() == LispyLexer.TRUE) {
+                    if (((TerminalNode) test).getSymbol().getType() == SchemeLexer.TRUE) {
                         ret = visitor.visit(conseq);
                     } else if (alt != null) {
                         ret = visitor.visit(alt);
@@ -291,19 +291,19 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             ParseTree n1 = paramList.sexpr().get(1);
             ParseTree n2 = paramList.sexpr().get(2);
 
-            if (n1.getChild(0) instanceof LispyParser.SexprlistContext
-                    || ((TerminalNode)n1).getSymbol().getType() == LispyLexer.IDENT) {
+            if (n1.getChild(0) instanceof SchemeParser.SexprlistContext
+                    || ((TerminalNode)n1).getSymbol().getType() == SchemeLexer.IDENT) {
                 Environment closureEnv = new Environment();
                 closureEnv.setParent(outEnv);
                 Closure closure = new Closure(closureEnv) {
                     @Override
-                    public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                            final LispyParser.SexprlistContext paramList) throws EvalError {
+                    public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                            final SchemeParser.SexprlistContext paramList) throws EvalError {
                         Environment tmpEnv = new Environment();
                         tmpEnv.setParent(paramEnv.getParent());
                         int i = 1;
@@ -320,11 +320,11 @@ public class EvalTree {
                     }
                 };
 
-                if (n2.getChild(0) instanceof LispyParser.SexprlistContext) {
+                if (n2.getChild(0) instanceof SchemeParser.SexprlistContext) {
                     closure.body = n2;
-                    if (n1.getChild(0) instanceof LispyParser.SexprlistContext) {
+                    if (n1.getChild(0) instanceof SchemeParser.SexprlistContext) {
 
-                        for (LispyParser.SexprContext sexpr : ((LispyParser.SexprlistContext) n1.getChild(0)).sexpr()) {
+                        for (SchemeParser.SexprContext sexpr : ((SchemeParser.SexprlistContext) n1.getChild(0)).sexpr()) {
                             String name = sexpr.getText();
                             closure.addParam(name);
                         }
@@ -337,7 +337,7 @@ public class EvalTree {
                     outEnv.bind(name, n2);
                     outEnv.addClosure(name, closure);
 
-                    return new NonTerminalNode(new CommonToken(LispyLexer.IDENT, name));
+                    return new NonTerminalNode(new CommonToken(SchemeLexer.IDENT, name));
                 }
             }
             throw new EvalError(paramList);
@@ -350,8 +350,8 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             System.out.println(paramList.sexpr().get(1).getText());
             return null;
         }
@@ -363,9 +363,9 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
-            LispyParser.SexprlistContext list = new LispyParser.SexprlistContext(null,
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
+            SchemeParser.SexprlistContext list = new SchemeParser.SexprlistContext(null,
                     -1);
             for (int i = 0; i < paramList.getChildCount(); i++) {
                 if (i != 1) {
@@ -388,8 +388,8 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
             int size = paramList.sexpr().size();
             if (size > 0) {
 
@@ -414,27 +414,27 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
-            LispyParser.SexprContext n1 = paramList.sexpr().get(1);
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
+            SchemeParser.SexprContext n1 = paramList.sexpr().get(1);
             ParseTree list = null;
             if (n1.sexprIdent() != null) {
                 list = outEnv.lookup(n1.getText());
-                if (!(list instanceof LispyParser.SexprlistContext)) {
+                if (!(list instanceof SchemeParser.SexprlistContext)) {
                     throw new EvalError(paramList);
                 }
             } else if (n1.sexprlist() != null) {
                 list = n1.sexprlist();
                 if (list.getParent() != null) {
                     list = visitor.visit(list);
-                    if (!(list instanceof LispyParser.SexprlistContext)) {
+                    if (!(list instanceof SchemeParser.SexprlistContext)) {
                         throw new EvalError(paramList);
                     }
                 }
             }
 
             if (list != null) {
-                LispyParser.SexprContext context = ((LispyParser.SexprlistContext) list).sexpr()
+                SchemeParser.SexprContext context = ((SchemeParser.SexprlistContext) list).sexpr()
                         .get(0);
                 if (context.sexprBoolean() != null) {
                     return context.sexprBoolean();
@@ -457,27 +457,27 @@ public class EvalTree {
         }
 
         @Override
-        public ParseTree eval(final SimpleLispyVisitor visitor, final Environment outEnv,
-                final LispyParser.SexprlistContext paramList) throws EvalError {
-            LispyParser.SexprContext n1 = paramList.sexpr().get(1);
+        public ParseTree eval(final SimpleSchemeVisitor visitor, final Environment outEnv,
+                final SchemeParser.SexprlistContext paramList) throws EvalError {
+            SchemeParser.SexprContext n1 = paramList.sexpr().get(1);
             ParseTree list = null;
             if (n1.sexprIdent() != null) {
                 list = outEnv.lookup(n1.getText());
-                if (!(list instanceof LispyParser.SexprlistContext)) {
+                if (!(list instanceof SchemeParser.SexprlistContext)) {
                     throw new EvalError(paramList);
                 }
             } else if (n1.sexprlist() != null) {
                 list = n1.sexprlist();
                 if (list.getParent() != null) {
                     list = visitor.visit(list);
-                    if (!(list instanceof LispyParser.SexprlistContext)) {
+                    if (!(list instanceof SchemeParser.SexprlistContext)) {
                         throw new EvalError(paramList);
                     }
                 }
             }
 
             if (list != null) {
-                LispyParser.SexprlistContext l = new LispyParser.SexprlistContext(null, -1);
+                SchemeParser.SexprlistContext l = new SchemeParser.SexprlistContext(null, -1);
                 int count = list.getChildCount();
                 for (int i = 0; i < count; i++) {
                     if (i != 1) {
