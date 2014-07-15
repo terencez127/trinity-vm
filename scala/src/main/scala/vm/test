@@ -3,7 +3,7 @@
 def fact(n) { if (n <=1) 1 else n + fact (n-1)}
 fact(100)
 
-// Functional
+// Scheme
 (+ (+ (+ 1 1) (+ 2 2)) (+ (+ 3 3)  (+ 4 4)) )
 (if (< 3 4) (+ 5 6) (- 7 8))
 (begin (define x 30) (define y x) (+ y 3))

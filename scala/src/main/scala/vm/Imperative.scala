@@ -2,7 +2,7 @@ package vm
 
 import scala.util.parsing.combinator._
 
-class Imp extends JavaTokenParsers {
+class Imperative extends JavaTokenParsers {
   def stats: Parser[String] = (
     "{" ~> rep1(stats) <~ "}" ^^ {
       case list =>
@@ -78,7 +78,7 @@ class Imp extends JavaTokenParsers {
   }
 }
 
-object Imp extends Imp {
+object Imperative extends Imperative {
   def main(args: Array[String]) {
     println("input : " + args(0))
     println(parseAll(stats, args(0)))

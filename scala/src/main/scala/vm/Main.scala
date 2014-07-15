@@ -8,13 +8,13 @@ import vm.VirtualMachine._
 object Main {
   def main(args: Array[String]) {
     val IMPERATIVE = 0
-    val FUNCTIONAL = 1
+    val SCHEME = 1
     val BYTECODE = 3
 
     var mode: Int = 0
 
     init(machine)
-    val impParser: Imp = new Imp
+    val impParser: Imperative = new Imperative
 
     if (args.length > 0) {
       //        val sc: Scanner = new Scanner(new FileReader(args(0)))
@@ -35,7 +35,7 @@ object Main {
             case "list" => {
               println("Avaiable commands:")
               println("States related: record, stop, query, reset\n")
-              println("Mode changing: functional, imp, bytecode\n")
+              println("Mode changing: scheme, imp, bytecode\n")
               println("Language related:")
               mode match {
                 case IMPERATIVE => {
@@ -66,7 +66,7 @@ Conditional:			if (a > 10) {a + 3} else {a -3}""")
               machine.resetRecord()
               println("Stored states have been cleared.")
             }
-            case "functional" => mode = FUNCTIONAL; println("Functional mode!")
+            case "scheme" => mode = SCHEME; println("Scheme mode!")
             case "bytecode" => mode = BYTECODE; println("Bytecode mode!")
             case "imp" => mode = IMPERATIVE; println("Imperative mode!")
             case queryPattern() => {
@@ -84,7 +84,7 @@ Conditional:			if (a > 10) {a + 3} else {a -3}""")
                   println("Scheme code: " + command)
                   "Result: " + eval(command)
                 }
-                case FUNCTIONAL => eval(rawCommand)
+                case SCHEME => eval(rawCommand)
                 case BYTECODE => {
                   val strs: Array[String] = rawCommand.split(" ")
                   strs(0) match {
